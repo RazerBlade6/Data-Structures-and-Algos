@@ -53,27 +53,30 @@ int main() {
 
     fclose(searchfile);
 
+    quickSort(arr, 0, size - 1);
+
     SEARCH linear = linearSearch(arr, size, key);
     printf("Linear Search Results: Element: %d, Position: %d, Runtime: %lf\n",linear.searchedElement, linear.position, linear.runtime);
     SEARCH binary = binarySearch(arr, size, key);
     printf("Binary Search Results: Element: %d, Position: %d, Runtime: %lf\n",binary.searchedElement, binary.position, binary.runtime);
 
-    FILE *outfile = fopen("Output.txt","w");
-    fprintf(outfile,"Linear Search Results: Element: %d, Position: %d, Runtime: %lf\n",linear.searchedElement, linear.position, linear.runtime);
-    fprintf(outfile,"Binary Search Results: Element: %d, Position: %d, Runtime: %lf\n",binary.searchedElement, binary.position, binary.runtime);
+    FILE *linfile = fopen("linearSearchResults.txt","w");
+    FILE *binfile = fopen("binarySearchResults.txt","w");
 
-    fprintf(outfile,"\nResults of All Test Cases are:\n");
+    fprintf(linfile,"\nResults of All Test Cases for Linear Search are:\n");
+    fprintf(binfile,"\nResults of All Test Cases for Binary Search are:\n");
+
 
     for (i = 0; i < 16; i++) {
         key = num[i];
+
         SEARCH testlinear = linearSearch(arr, size, key);
         SEARCH testbinary = binarySearch(arr, size, key);
-        printf("Entered Loop\n");
-        fprintf(outfile,"Linear Search Results: Element: %d, Position: %d, Runtime: %lf s\n",testlinear.searchedElement, testlinear.position, testlinear.runtime);
-        fprintf(outfile,"Binary Search Results: Element: %d, Position: %d, Runtime: %lf s\n",testbinary.searchedElement, testbinary.position, testbinary.runtime);
+
+        fprintf(linfile,"Linear Search Results: Element: %d, Position: %d, Runtime: %lf s\n",testlinear.searchedElement, testlinear.position, testlinear.runtime);
+        fprintf(binfile,"Binary Search Results: Element: %d, Position: %d, Runtime: %lf s\n",testbinary.searchedElement, testbinary.position, testbinary.runtime);
     }
 
-    fclose(outfile);
     free(arr);
     return 0;
 }
@@ -90,14 +93,13 @@ SEARCH linearSearch(int *arr, int size, int key) {
         }
     }
     t = clock() - t;
-    SEARCH linear = {key, index, (double)t/CLOCKS_PER_SEC};
+    SEARCH linear = {key, index, (double)t};
     return linear;
 }
 
 SEARCH binarySearch(int arr[], int size, int key) {
     clock_t t = clock();
     int index = -1;
-    quickSort(arr, 0, size - 1);
 
     int low = 0, high = size - 1;
 
@@ -115,15 +117,11 @@ SEARCH binarySearch(int arr[], int size, int key) {
     }
 
     t = clock() - t;
-    SEARCH binary = {key, index, (double)t/CLOCKS_PER_SEC};
+    SEARCH binary = {key, index, (double)t};
     return binary;
 }
 
 void quickSort(int arr[], int low, int high) {
-    static int check = 0;
-    if (check!=0) {
-        return;
-    }
     if (low < high) {
         int leftPivot, rightPivot;
 
@@ -164,7 +162,6 @@ void quickSort(int arr[], int low, int high) {
         quickSort(arr, i + 1, j - 1);
         quickSort(arr, j + 1, high);
     }
-    check++;
 }
 
 void swap(int *a, int *b) {
