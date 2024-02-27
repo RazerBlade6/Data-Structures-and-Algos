@@ -77,7 +77,10 @@ int main() {
         fprintf(binfile,"Binary Search Results: Element: %d, Position: %d, Runtime: %lf s\n",testbinary.searchedElement, testbinary.position, testbinary.runtime);
     }
 
+    fclose(linfile);
+    fclose(binfile);
     free(arr);
+    
     return 0;
 }
 
