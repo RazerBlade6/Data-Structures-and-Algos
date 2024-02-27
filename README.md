@@ -7,4 +7,4 @@ Week 2: Implementation of QUEUE (FIFO) using arrays in C
 
 Week 3: Implementation of DOUBLY LINKED LIST using arrays in C
 
-Week 4: Implementation of Linear and Binary Search in C (WIP)
+Week 4: Implementation of Linear and Binary Search in C
