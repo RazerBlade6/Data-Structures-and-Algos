@@ -1,0 +1,36 @@
+Linear Search Results: Element: 12345, Position: 139977, Runtime: 0.000000
+Binary Search Results: Element: 12345, Position: -1, Runtime: 0.001000
+
+Results of All Test Cases are:
+Linear Search Results: Element: 30, Position: 287, Runtime: 0.000000 s
+Binary Search Results: Element: 30, Position: 287, Runtime: 0.000000 s
+Linear Search Results: Element: 60, Position: 288, Runtime: 0.000000 s
+Binary Search Results: Element: 60, Position: -1, Runtime: 0.000000 s
+Linear Search Results: Element: 120, Position: 2040, Runtime: 0.000000 s
+Binary Search Results: Element: 120, Position: -1, Runtime: 0.000000 s
+Linear Search Results: Element: 240, Position: 3196, Runtime: 0.000000 s
+Binary Search Results: Element: 240, Position: -1, Runtime: 0.000000 s
+Linear Search Results: Element: 480, Position: 458, Runtime: 0.000000 s
+Binary Search Results: Element: 480, Position: -1, Runtime: 0.000000 s
+Linear Search Results: Element: 960, Position: 940, Runtime: 0.000000 s
+Binary Search Results: Element: 960, Position: -1, Runtime: 0.000000 s
+Linear Search Results: Element: 1920, Position: 73738, Runtime: 0.000000 s
+Binary Search Results: Element: 1920, Position: -1, Runtime: 0.000000 s
+Linear Search Results: Element: 3840, Position: 120811, Runtime: 0.000000 s
+Binary Search Results: Element: 3840, Position: -1, Runtime: 0.000000 s
+Linear Search Results: Element: 7680, Position: 29913, Runtime: 0.000000 s
+Binary Search Results: Element: 7680, Position: -1, Runtime: 0.000000 s
+Linear Search Results: Element: 15360, Position: 15348, Runtime: 0.000000 s
+Binary Search Results: Element: 15360, Position: -1, Runtime: 0.000000 s
+Linear Search Results: Element: 30720, Position: 21421, Runtime: 0.000000 s
+Binary Search Results: Element: 30720, Position: -1, Runtime: 0.000000 s
+Linear Search Results: Element: 61440, Position: 61432, Runtime: 0.000000 s
+Binary Search Results: Element: 61440, Position: -1, Runtime: 0.000000 s
+Linear Search Results: Element: 122880, Position: 122874, Runtime: 0.000000 s
+Binary Search Results: Element: 122880, Position: -1, Runtime: 0.000000 s
+Linear Search Results: Element: 245760, Position: 245756, Runtime: 0.000000 s
+Binary Search Results: Element: 245760, Position: -1, Runtime: 0.000000 s
+Linear Search Results: Element: 491520, Position: 491518, Runtime: 0.001000 s
+Binary Search Results: Element: 491520, Position: -1, Runtime: 0.000000 s
+Linear Search Results: Element: 0, Position: 0, Runtime: 0.000000 s
+Binary Search Results: Element: 0, Position: 14, Runtime: 0.000000 s
