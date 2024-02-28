@@ -9,8 +9,8 @@ typedef struct Search {
 } SEARCH;
 
 SEARCH linearSearch(int *arr, int size, int key);
-SEARCH binarySearch(int arr[], int size, int key);
-void quickSort(int arr[], int low, int high);
+SEARCH binarySearch(int *arr, int size, int key);
+void sort(int *arr, int low, int high);
 void swap(int *a, int *b);
 
 int main() {
@@ -53,7 +53,7 @@ int main() {
 
     fclose(searchfile);
 
-    quickSort(arr, 0, size - 1);
+    sort(arr, 0, size - 1);
 
     SEARCH linear = linearSearch(arr, size, key);
     printf("Linear Search Results: Element: %d, Position: %d, Runtime: %lf\n",linear.searchedElement, linear.position, linear.runtime);
@@ -67,7 +67,7 @@ int main() {
     fprintf(binfile,"\nResults of All Test Cases for Binary Search are:\n");
 
 
-    for (i = 0; i < 16; i++) {
+    for (i = 0; i < 15; i++) {
         key = num[i];
 
         SEARCH testlinear = linearSearch(arr, size, key);
@@ -76,11 +76,10 @@ int main() {
         fprintf(linfile,"Linear Search Results: Element: %d, Position: %d, Runtime: %lf s\n",testlinear.searchedElement, testlinear.position, testlinear.runtime);
         fprintf(binfile,"Binary Search Results: Element: %d, Position: %d, Runtime: %lf s\n",testbinary.searchedElement, testbinary.position, testbinary.runtime);
     }
-
+    
     fclose(linfile);
     fclose(binfile);
     free(arr);
-    
     return 0;
 }
 
@@ -100,7 +99,7 @@ SEARCH linearSearch(int *arr, int size, int key) {
     return linear;
 }
 
-SEARCH binarySearch(int arr[], int size, int key) {
+SEARCH binarySearch(int *arr, int size, int key) {
     clock_t t = clock();
     int index = -1;
 
@@ -124,7 +123,7 @@ SEARCH binarySearch(int arr[], int size, int key) {
     return binary;
 }
 
-void quickSort(int arr[], int low, int high) {
+void sort(int *arr, int low, int high) {
     if (low < high) {
         int leftPivot, rightPivot;
 
@@ -161,9 +160,9 @@ void quickSort(int arr[], int low, int high) {
         swap(&arr[low], &arr[i]);
         swap(&arr[high], &arr[j]);
 
-        quickSort(arr, low, i - 1);
-        quickSort(arr, i + 1, j - 1);
-        quickSort(arr, j + 1, high);
+        sort(arr, low, i - 1);
+        sort(arr, i + 1, j - 1);
+        sort(arr, j + 1, high);
     }
 }
 

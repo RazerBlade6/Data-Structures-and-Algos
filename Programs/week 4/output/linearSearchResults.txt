@@ -7,12 +7,11 @@ Linear Search Results: Element: 240, Position: 2340, Runtime: 0.000000 s
 Linear Search Results: Element: 480, Position: 4645, Runtime: 0.000000 s
 Linear Search Results: Element: 960, Position: 9423, Runtime: 0.000000 s
 Linear Search Results: Element: 1920, Position: 19031, Runtime: 0.000000 s
-Linear Search Results: Element: 3840, Position: 37811, Runtime: 1.000000 s
+Linear Search Results: Element: 3840, Position: 37811, Runtime: 0.000000 s
 Linear Search Results: Element: 7680, Position: 75664, Runtime: 0.000000 s
-Linear Search Results: Element: 15360, Position: 151512, Runtime: 0.000000 s
-Linear Search Results: Element: 30720, Position: 302376, Runtime: 1.000000 s
-Linear Search Results: Element: 61440, Position: 603938, Runtime: 2.000000 s
+Linear Search Results: Element: 15360, Position: 151512, Runtime: 1.000000 s
+Linear Search Results: Element: 30720, Position: 302376, Runtime: 0.000000 s
+Linear Search Results: Element: 61440, Position: 603938, Runtime: 1.000000 s
 Linear Search Results: Element: 122880, Position: 983037, Runtime: 2.000000 s
-Linear Search Results: Element: 245760, Position: 983038, Runtime: 3.000000 s
+Linear Search Results: Element: 245760, Position: 983038, Runtime: 2.000000 s
 Linear Search Results: Element: 491520, Position: 983039, Runtime: 2.000000 s
-Linear Search Results: Element: 0, Position: 0, Runtime: 0.000000 s

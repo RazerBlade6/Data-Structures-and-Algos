@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define CAPACITY 10
-
 typedef struct Student {
     char id[14];
     char name[50];
@@ -17,11 +15,12 @@ typedef struct Node {
 } NODE;
 
 typedef struct LinkedList {
-    NODE data[CAPACITY];
+    NODE *data;
     int pointer;
+    int size;
 } LINKEDLIST;
 
-void addElement(LINKEDLIST*, NODE, STUDENT);
+void addElement(LINKEDLIST*, STUDENT);
 void removeElement(LINKEDLIST*, int index);
 void traverseForward(LINKEDLIST);
 void traverseBackward(LINKEDLIST);
@@ -29,10 +28,15 @@ void traverseBackward(LINKEDLIST);
 int main() {
     LINKEDLIST linkedlist;
     linkedlist.pointer = 0;
+    linkedlist.size = 1;
+    linkedlist.data = (NODE*)malloc(linkedlist.size * sizeof(NODE));
+
     STUDENT student;
+
     FILE *file = fopen("studentin.dat", "r");
     while (fscanf(file,"%s %s %s %lf",student.id, student.name, student.dob, &student.cgpa) == 4) {
-        addElement(&linkedlist, linkedlist.data[linkedlist.pointer], student);
+        linkedlist.data = (NODE*)realloc(linkedlist.data, ++linkedlist.size * sizeof(NODE));
+        addElement(&linkedlist, student);
     }
 
     for (int i = 0; i < linkedlist.pointer; i++) {
@@ -42,24 +46,23 @@ int main() {
     int index;
     printf("Enter the index to remove: ");
     scanf("%d", &index);
+
     removeElement(&linkedlist, index);
+
     traverseForward(linkedlist);
     traverseBackward(linkedlist);
+
     return 0;
 }
 
-void addElement(LINKEDLIST *linkedlist, NODE node, STUDENT student) {
-    if(linkedlist->pointer == CAPACITY) {
-        printf("Linked List Overflow\n");
-    }
-    node.entry = student;
-    if (linkedlist->pointer-1 > -1)
-    node.prev = &linkedlist->data[linkedlist->pointer - 1].entry;
-    if (linkedlist->pointer + 1 < CAPACITY - 1)
-    node.next = &linkedlist->data[linkedlist->pointer + 1].entry;
+void addElement(LINKEDLIST *linkedlist, STUDENT student) {
 
-    linkedlist->data[linkedlist->pointer] = node;
-    linkedlist->pointer++;
+    linkedlist->data[linkedlist->pointer].entry = student;
+    if (linkedlist->pointer-1 > -1) {
+        linkedlist->data[linkedlist->pointer].prev = &linkedlist->data[linkedlist->pointer - 1].entry;
+    }
+    linkedlist->data[linkedlist->pointer].next = &linkedlist->data[linkedlist->pointer + 1].entry;
+
 }
 
 void removeElement(LINKEDLIST *linkedlist, int index) {
@@ -71,7 +74,6 @@ void removeElement(LINKEDLIST *linkedlist, int index) {
     for (int i = index + 1; i < linkedlist->pointer; i++) {
         linkedlist->data[i-1] = linkedlist->data[i];
     }
-    linkedlist->pointer--;
 }
 
 void traverseForward(LINKEDLIST linkedlist) {

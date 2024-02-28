@@ -67,10 +67,10 @@ void display(QUEUE *queue) {
 
     fclose(file);
 
-    printf("Students With CGPA Greater Than 9:\n");
+    printf("Students With CGPA Less Than 9:\n");
 
     for (int i = queue->first + 1; i < (queue->last + 1); ++i) {
-        if (queue->data[i].cgpa > 9.0) 
+        if (queue->data[i].cgpa < 9.0) 
         printf("%s\n",queue->data[i].name);
     }
 }
