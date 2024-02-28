@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "sort.h"
+
 
 typedef struct Search {
     int searchedElement;
@@ -10,8 +12,6 @@ typedef struct Search {
 
 SEARCH linearSearch(int *arr, int size, int key);
 SEARCH binarySearch(int *arr, int size, int key);
-void sort(int *arr, int low, int high);
-void swap(int *a, int *b);
 
 int main() {
 
@@ -53,7 +53,10 @@ int main() {
 
     fclose(searchfile);
 
-    sort(arr, 0, size - 1);
+    clock_t t = clock();
+    quickSort(arr, 0, size - 1);
+    t = (clock() - t);
+    printf("Quick Sort Time: %lf\n",(double)t/CLOCKS_PER_SEC);
 
     SEARCH linear = linearSearch(arr, size, key);
     printf("Linear Search Results: Element: %d, Position: %d, Runtime: %lf\n",linear.searchedElement, linear.position, linear.runtime);
@@ -121,53 +124,4 @@ SEARCH binarySearch(int *arr, int size, int key) {
     t = clock() - t;
     SEARCH binary = {key, index, (double)t};
     return binary;
-}
-
-void sort(int *arr, int low, int high) {
-    if (low < high) {
-        int leftPivot, rightPivot;
-
-        if (arr[low] > arr[high]) {
-            swap(&arr[low], &arr[high]);
-        }
-
-        leftPivot = arr[low];
-        rightPivot = arr[high];
-
-        int i = low + 1, k = low + 1, j = high - 1;
-
-        while (k <= j) {
-            if (arr[k] < leftPivot) {
-                swap(&arr[i], &arr[k]);
-                i++;
-            } else if (arr[k] >= rightPivot) {
-                while (arr[j] > rightPivot && k < j) {
-                    j--;
-                }
-
-                swap(&arr[k], &arr[j]);
-                j--;
-                if (arr[k] < leftPivot) {
-                    swap(&arr[i], &arr[k]);
-                    i++;
-                }
-            }
-            k++;
-        }
-        i--;
-        j++;
-
-        swap(&arr[low], &arr[i]);
-        swap(&arr[high], &arr[j]);
-
-        sort(arr, low, i - 1);
-        sort(arr, i + 1, j - 1);
-        sort(arr, j + 1, high);
-    }
-}
-
-void swap(int *a, int *b) {
-    int temp = *a;
-    *a = *b;
-    *b = temp;
 }
