@@ -62,7 +62,7 @@ void addElement(LINKEDLIST *linkedlist, STUDENT student) {
         linkedlist->data[linkedlist->pointer].prev = &linkedlist->data[linkedlist->pointer - 1].entry;
     }
     linkedlist->data[linkedlist->pointer].next = &linkedlist->data[linkedlist->pointer + 1].entry;
-
+    ++linkedlist->pointer;
 }
 
 void removeElement(LINKEDLIST *linkedlist, int index) {
@@ -74,6 +74,7 @@ void removeElement(LINKEDLIST *linkedlist, int index) {
     for (int i = index + 1; i < linkedlist->pointer; i++) {
         linkedlist->data[i-1] = linkedlist->data[i];
     }
+    --linkedlist->pointer;
 }
 
 void traverseForward(LINKEDLIST linkedlist) {
@@ -84,7 +85,7 @@ void traverseForward(LINKEDLIST linkedlist) {
 }
 
 void traverseBackward(LINKEDLIST linkedlist) {
-    printf("\nTraversal in Forward Direction:\n");
+    printf("\nTraversal in Reverse Direction:\n");
     for (int i = linkedlist.pointer - 1; i >= 0; i--) {
         printf("ID: %s, Name: %s, DOB: %s, CGPA: %.2lf\n", linkedlist.data[i].entry.id, linkedlist.data[i].entry.name, linkedlist.data[i].entry.dob, linkedlist.data[i].entry.cgpa);
     }
