@@ -3,7 +3,6 @@
 #include <time.h>
 #include "sort.h"
 
-
 typedef struct Search {
     int searchedElement;
     int position;
@@ -58,10 +57,18 @@ int main() {
     t = (clock() - t);
     printf("Quick Sort Time: %lf\n",(double)t/CLOCKS_PER_SEC);
 
-    SEARCH linear = linearSearch(arr, size, key);
-    printf("Linear Search Results: Element: %d, Position: %d, Runtime: %lf\n",linear.searchedElement, linear.position, linear.runtime);
-    SEARCH binary = binarySearch(arr, size, key);
-    printf("Binary Search Results: Element: %d, Position: %d, Runtime: %lf\n",binary.searchedElement, binary.position, binary.runtime);
+    SEARCH linear = linearSearch(arr, index, key);
+    if (linear.searchedElement != -1) {
+        printf("Linear Search Results: Element: %d, Position: %d, Runtime: %lf\n", linear.searchedElement, linear.position, linear.runtime);
+    } else {
+        printf("Linear Search Results: Element: %d, Position: Not Found, Runtime: %lf\n", linear.searchedElement, linear.runtime);
+    }
+    SEARCH binary = binarySearch(arr, index, key);
+    if (binary.searchedElement != -1) {
+        printf("Binary Search Results: Element: %d, Position: %d, Runtime: %lf\n", binary.searchedElement, binary.position, binary.runtime);
+    } else {
+        printf("Binary Search Results: Element: %d, Position: Not Found, Runtime: %lf\n", binary.searchedElement, binary.runtime);
+    }
 
     FILE *linfile = fopen("linearSearchResults.txt","w");
     FILE *binfile = fopen("binarySearchResults.txt","w");
@@ -76,13 +83,22 @@ int main() {
         SEARCH testlinear = linearSearch(arr, size, key);
         SEARCH testbinary = binarySearch(arr, size, key);
 
-        fprintf(linfile,"Linear Search Results: Element: %d, Position: %d, Runtime: %lf s\n",testlinear.searchedElement, testlinear.position, testlinear.runtime);
-        fprintf(binfile,"Binary Search Results: Element: %d, Position: %d, Runtime: %lf s\n",testbinary.searchedElement, testbinary.position, testbinary.runtime);
+        if (testlinear.searchedElement != -1) {
+            fprintf(linfile, "Element: %d, Position: %d, Runtime: %lf ms\n", testlinear.searchedElement, testlinear.position, testlinear.runtime);
+        } else {
+            fprintf(linfile, "Element: %d, Position: Not Found, Runtime: %lf ms\n", testlinear.searchedElement, testlinear.runtime);
+        }
+        if (testbinary.searchedElement != -1) {
+            fprintf(binfile, "Element: %d, Position: %d, Runtime: %lf ms\n", testbinary.searchedElement, testbinary.position, testbinary.runtime);
+        } else {
+            fprintf(binfile, "Element: %d, Position: Not Found, Runtime: %lf ms\n", testbinary.searchedElement, testbinary.runtime);
+        }
     }
     
     fclose(linfile);
     fclose(binfile);
     free(arr);
+
     return 0;
 }
 
