@@ -20,14 +20,13 @@ typedef struct LinkedList {
     int size;
 } LINKEDLIST;
 
-
 void insert(LINKEDLIST*, int, char[], char[], double);
 int find(LINKEDLIST, char []);
 int delete(LINKEDLIST*, char []);
-STUDENT get(LINKEDLIST, int);
-void display(LINKEDLIST);
-int size(LINKEDLIST);
-int isEmpty(LINKEDLIST);
+static inline STUDENT get(LINKEDLIST, int);
+static inline void display(LINKEDLIST);
+static inline int size(LINKEDLIST);
+static inline int isEmpty(LINKEDLIST);
 
 int main() {
     LINKEDLIST linkedlist;
@@ -40,33 +39,27 @@ int main() {
 
     FILE *file = fopen("studentin.dat","r");
     if (file == NULL) {
-        printf("Error, file not found");
+        perror("Error");
         return 1;
     }
 
     while (fscanf(file, "%s %s %lf", student.name, student.id, &student.cgpa) == 3) {
-        linkedlist.data = realloc(linkedlist.data, ++linkedlist.size * sizeof(NODE));
         insert(&linkedlist, linkedlist.pointer, student.name, student.id, student.cgpa);
     }
+    linkedlist.data[linkedlist.pointer].next = (STUDENT *)NULL;
 
     fclose(file);
 
-    int choice;
-    int position;
+    int choice, position, result;
     char name[50];
     char id[14];
     double cgpa;
-    int result;
-
-    //system("cls");
 
     while (1) {
         printf("Welcome to the Linked List Interface\n");
         printf("0. Clear the Screen\n1. Add a record\n2. Find a record by name\n3. Delete a record\n");
         printf("4. Get a record by index\n5. Display the list\n6. Check if Empty\n7. Get the Size\n8. Exit\n");
-
         printf("Choice: ");
-        
         scanf("%d",&choice);
 
         switch (choice) {
@@ -75,12 +68,11 @@ int main() {
                 break;
                 
             case 1:
-                linkedlist.data = realloc(linkedlist.data, ++linkedlist.size * sizeof(NODE));
                 printf("Enter the position to insert to (-1 for last position): ");
                 scanf("%d", &position);
                 if (position == -1)
                 position = linkedlist.pointer;
-                getchar();
+                fflush(stdin);
 
                 printf("Enter the Name: ");
                 SCANSTR(name);
@@ -92,10 +84,11 @@ int main() {
                 scanf("%lf", &cgpa);
 
                 insert(&linkedlist, position, name, id, cgpa);
+                linkedlist.data[linkedlist.pointer].next = (STUDENT *)NULL;
+
                 break;
-            
             case 2:
-                getchar();
+                fflush(stdin);
                 printf("Enter the Name to search: ");
                 SCANSTR(name);
                 result = find(linkedlist, name);
@@ -107,15 +100,16 @@ int main() {
                 break;
 
             case 3:
-                getchar();
+                fflush(stdin);
                 printf("Enter the Name to be deleted: ");
                 SCANSTR(name);
 
                 result = delete(&linkedlist, name);
-                if (!result) {
+                if (result < 0) {
                     printf("%s not found, cannot be deleted.\n", name);
                 } else {
-                    printf("%s deleted from index %d\n", name, result);
+                    printf("%s deleted from list index %d.\n", name, result);
+                    linkedlist.data[linkedlist.pointer].next = (STUDENT *)NULL;
                 }
                 break;
             
@@ -139,6 +133,7 @@ int main() {
                     printf("Not Empty\n");
                 }
                 break;
+
             case 7:
                 printf("Size of linked List is: %d\n", size(linkedlist));
                 break;
@@ -150,25 +145,28 @@ int main() {
                 printf("Invalid Choice!\n");
         }
     }
-    system("cls");
 }
 
 void insert(LINKEDLIST *linkedlist, int position, char name[], char ID[], double cgpa) {
-    if (position > linkedlist->pointer)
-    return;
+    
+    if (position > linkedlist->pointer){
+        printf("Cannot Add Elements At indices beyond size of the linked list");
+        return;
+    } else {
+        linkedlist->data = (NODE *)realloc(linkedlist->data, ++linkedlist->size * sizeof(NODE));
+    }
     
     STUDENT student;
     strcpy(student.name, name);
     strcpy(student.id, ID);
     student.cgpa = cgpa;
-
-    for (int i = position; i < linkedlist->pointer; i++) {
-        linkedlist->data[i + 1] = linkedlist->data[i]; 
+    
+    for (int i = linkedlist->pointer - 1; i >= position; i--) {
+        linkedlist->data[i + 1] = linkedlist->data[i];
     }
-
-    linkedlist->data[position].entry = student;
-    linkedlist->data[position].next = &linkedlist->data[position+1].entry;
     linkedlist->pointer++;
+    linkedlist->data[position].entry = student;
+    linkedlist->data[position].next = &linkedlist->data[position + 1].entry;
 }
 
 int find(LINKEDLIST linkedlist, char name[]) {
@@ -184,30 +182,33 @@ int find(LINKEDLIST linkedlist, char name[]) {
 int delete(LINKEDLIST *linkedlist, char name[]) {
     int index = find(*linkedlist, name);
     if (index == -1)
-    return 0;
+        return -1;
     
     for (int i = index + 1; i < linkedlist->pointer; i++) {
         linkedlist->data[i - 1] = linkedlist->data[i];
     }
+    
     linkedlist->pointer--;
-    return 1;
+    return index;
 }
 
-STUDENT get(LINKEDLIST linkedlist, int position) {
+static inline STUDENT get(LINKEDLIST linkedlist, int position) {
     return linkedlist.data[position].entry;
 }
 
-void display(LINKEDLIST linkedlist) {
+static inline void display(LINKEDLIST linkedlist) {
     STUDENT student;
-    for (int i = 0; i < linkedlist.pointer; i++) {
+
+    for (int i = 0; linkedlist.data[i].next != NULL; ++i) {
         student = linkedlist.data[i].entry;
         printf("%d. Name: %s, ID: %s, CGPA: %lf\n", i + 1, student.name, student.id, student.cgpa);
     }
 }
 
-int size(LINKEDLIST linkedlist) {
+static inline int size(LINKEDLIST linkedlist) {
     return linkedlist.pointer;
 }
-int isEmpty(LINKEDLIST linkedlist) {
-    return (linkedlist.pointer != 0) ? 0 : 1;
+
+static inline int isEmpty(LINKEDLIST linkedlist) {
+    return (!linkedlist.pointer) ? 1 : 0;
 }
