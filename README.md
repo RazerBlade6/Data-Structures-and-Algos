@@ -8,3 +8,7 @@ Week 2: Implementation of QUEUE (FIFO) using arrays in C
 Week 3: Implementation of SINGLY LINKED LIST using arrays in C
 
 Week 4: Implementation of Linear and Binary Search in C
+
+Week 5: Implementation of Merge Sort in C
+
+Week 6: Implementation of Single-Pivot Quicksort in C
