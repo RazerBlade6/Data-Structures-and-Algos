@@ -52,7 +52,8 @@ static node_t* init_node(const char *key, void *value);
 uint64_t hash_key(const char *key, size_t capacity);
 
 /**
- * Inserts a key-value pair into the table.
+ * Inserts a key-value pair into the table. If the key is already
+ * present, the value is updated.
  * @param table The table to be inserted to.
  * @param key The string to act as the Hash Key.
  * @param value The value to be inserted into the Hash Table.
