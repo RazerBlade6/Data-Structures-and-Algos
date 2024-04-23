@@ -12,3 +12,7 @@ Week 4: Implementation of Linear and Binary Search in C
 Week 5: Implementation of Merge Sort in C
 
 Week 6: Implementation of Single-Pivot Quicksort in C
+
+Week 7: Implementation of Stack and Queue using Linked List in C
+
+Week 8: Implementation of Separately Chained Hash Table in C
