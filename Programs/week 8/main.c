@@ -1,3 +1,5 @@
+//! TO USE AS AN API, clear int main() and void hash_table_display(), they contain implementation-specific code.
+
 #include "include/hashtable.h"
 #include "include/utils.h"
 #include <stdio.h>
@@ -124,11 +126,10 @@ hash_table_t* init_hash_table(void) {
 
         table->entries[i]->next = NULL;
     }
-
     return table;
 }
 
-node_t* init_node(const char *key, void *value) {
+static node_t* init_node(const char *key, void *value) {
     node_t *node = malloc(sizeof(node_t));
     if (node == NULL) {
         perror("Error");
@@ -186,25 +187,6 @@ uint64_t hash_key(const char *key, size_t capacity) {
     }
     hash = hash % capacity;
     return hash;
-}
-
-void hash_table_display(hash_table_t *table) {
-    puts("\n\nHASH TABLE: \n");
-
-    for (uint64_t i = 0; i < table->capacity; i++) {
-        node_t *current = table->entries[i];
-        if (current->entry.key == NULL)
-            continue;
-        
-        printf("%lld. ", i);
-        while(current->next != NULL) {
-            printf("{`%s`: `%s`} -> ", current->entry.key, (char *)current->entry.value);
-            current = current->next;
-        }
-        printf("{`%s`: `%s`}\n", current->entry.key, (char *)current->entry.value);
-    }
-    
-    puts("\n");
 }
 
 void* hash_table_find(hash_table_t *table, const char *key) {
@@ -267,4 +249,23 @@ void hash_table_destroy(hash_table_t *table) {
     }
     free(table->entries);
     free(table);
+}
+
+void hash_table_display(hash_table_t *table) {
+    puts("\n\nHASH TABLE: \n");
+
+    for (uint64_t i = 0; i < table->capacity; i++) {
+        node_t *current = table->entries[i];
+        if (current->entry.key == NULL)
+            continue;
+        
+        printf("%lld. ", i);
+        while(current->next != NULL) {
+            printf("{`%s`: `%s`} -> ", current->entry.key, (char *)current->entry.value);
+            current = current->next;
+        }
+        printf("{`%s`: `%s`}\n", current->entry.key, (char *)current->entry.value);
+    }
+    
+    puts("\n");
 }
