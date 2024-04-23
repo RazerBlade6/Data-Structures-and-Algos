@@ -244,8 +244,6 @@ void hash_table_destroy(hash_table_t *table) {
             free(current);
             current = next;
         }
-
-        free(table->entries[i]);
     }
     free(table->entries);
     free(table);
