@@ -16,3 +16,5 @@ Week 6: Implementation of Single-Pivot Quicksort in C
 Week 7: Implementation of Stack and Queue using Linked List in C
 
 Week 8: Implementation of Separately Chained Hash Table in C
+
+Week 9: Implementation of Heap Sort in C
